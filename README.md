@@ -1,7 +1,9 @@
 # Swoole Chat
 
 Projeto para estudo.
+
 Chat criado utilizando funcionalidades Socket do swoole PHP.
+
 O Front-end foi implementado seguindo a arquitetura CSS - BEM (Block Element Modifier). 
 
 ![image](https://user-images.githubusercontent.com/45777832/158004724-b5665f64-9665-4f42-93dd-f5e5e4495f0f.png)
