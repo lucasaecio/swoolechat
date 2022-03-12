@@ -41,4 +41,4 @@ Para realizar a instalação, seguir os seguintes passos:
 
 
 - [Swoole](https://openswoole.com/)
-- [Docker](https://www.docker.com/) - Framework para desenvolvimento da interface
+- [Docker](https://www.docker.com/)
