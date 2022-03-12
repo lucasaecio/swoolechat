@@ -1,0 +1,7 @@
+.dashboard {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0px 20px 0;
+    color: #e0c3fc;
+    font-size: 20px;
+}

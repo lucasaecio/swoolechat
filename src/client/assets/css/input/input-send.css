@@ -1,0 +1,27 @@
+.input__send {
+    position: absolute;
+    right: 0;
+    top: calc(50% - 16px);
+    background-color: #9d4edd;
+    color: white;
+    font-weight: 500;
+    border: none;
+    width: 60px;
+    height: 32px;
+    border-radius: 8px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.input__send:hover {
+    transform: scale(1.05);
+}
+
+.input__send:active {
+    transform: scale(1.02);
+}
+
+.input__send:focus-visible {
+    outline: none;
+}

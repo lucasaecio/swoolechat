@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swoole Chat</title>
+
+    <!-- CSS -->
+    <link href="./assets/css/normalize.css" rel="stylesheet" />
+    <link href="./assets/css/reset.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./assets/css/layout.css">
+
+
+    <link rel="stylesheet" href="./assets/css/chat/chat-buttons.css">
+    <link rel="stylesheet" href="./assets/css/chat/chat-button.css">
+    <link rel="stylesheet" href="./assets/css/chat/chat.css">
+    
+
+    <link rel="stylesheet" href="./assets/css/dashboard/dashboard-label.css">
+    <link rel="stylesheet" href="./assets/css/dashboard/dashboard-value.css">
+    <link rel="stylesheet" href="./assets/css/dashboard/dashboard.css">
+
+
+    <link rel="stylesheet" href="./assets/css/messages/messages-list.css">
+    <link rel="stylesheet" href="./assets/css/messages/messages.css">
+
+
+    <link rel="stylesheet" href="./assets/css/input/input-send.css">
+    <link rel="stylesheet" href="./assets/css/input/input-field.css">
+    <link rel="stylesheet" href="./assets/css/input/input.css">
+    <!-- END CSS -->
+</head>
+<body class="layout">
+
+    <div class="dashboard">
+        <span class="dashboard__label">Total de usuários ativos: </span>
+        <span class="dashboard__value">0</span>
+    </div>
+
+    <section class="chat">
+
+        <div class="chat__buttons">
+            <button class="chat__button" id="btn_1"> Canal 1</button>
+            <button class="chat__button" id="btn_2"> Canal 2</button>
+        </div>
+
+        <div class="messages">
+            <div class="messages__list">
+                <output></output>   
+            </div>
+            <div class="input">
+                <input class="input__field" type="text">
+                <button class="input__send">SEND</button>
+            </div>
+        </div>
+
+
+    </section>
+<script>
+    const ws = new WebSocket("ws://localhost:8080")
+
+    const input = document.querySelector("input");
+    const output = document.querySelector("output");
+    const dashboard = document.querySelector("span#dashboard_value");
+
+    ws.addEventListener("message", message => {
+        const message_body = JSON.parse(message.data);
+
+        switch (message_body.type) {
+            case "chat":
+                output.append("dale:" + message_body.data, document.createElement("br"));
+                break;
+            case "dashboard":
+                dashboard.innerHTML = message_body.data;
+                break;
+
+        }
+    });
+
+
+    input.addEventListener("keypress", e => {
+        if(e.code === "Enter") {
+            const value = input.value;
+
+            output.append("Eu: " + value, document.createElement("br"));
+            ws.send(JSON.stringify({type: "message", target: channel_target, data: value}));
+
+            input.value = "";
+        }
+    })
+
+
+    const channel1_button = document.querySelector("button#btn_1");
+    const channel2_button = document.querySelector("button#btn_2");
+
+    channel1_button.addEventListener("click", e => {
+        output.append("Você entrou no canal 1!", document.createElement("br"));
+        ws.send(JSON.stringify({type: "subscribe", target: "1"}));
+    })
+    channel2_button.addEventListener("click", e => {
+        output.append("Você entrou no canal 2!", document.createElement("br"));
+        ws.send(JSON.stringify({type: "subscribe", target: "2"}));
+    })
+
+
+    setInterval(() => {
+        ws.send(JSON.stringify({type: "dashboard"}));
+    }, 2000)
+
+</script>
+</body>
+</html>

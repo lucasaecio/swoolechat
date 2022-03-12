@@ -1,0 +1,19 @@
+.chat__button {
+    width: 48%;
+    padding: 10px 0;
+    background-color: #ff9e00;
+    border: none;
+    border-radius: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.chat__button:hover {
+    transform: scale(1.02);
+}
+
+.chat__button:active {
+    transform: scale(1.01);
+}
